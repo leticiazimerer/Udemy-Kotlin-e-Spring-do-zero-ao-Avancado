@@ -17,8 +17,8 @@ class CustomerService {
 
     fun create(customer: CustomerModel) {
         val id = if(customers.isEmpty()) {
-            "1"
-        } else {
+            1
+        } else{
             customers.last().id!!.toInt() + 1
         }
 
@@ -27,7 +27,7 @@ class CustomerService {
         customers.add(customer)
     }
 
-    fun getCustomer(id: String): CustomerModel {
+    fun getCustomer(id: Int): CustomerModel {
         return customers.filter { it.id == id }.first()
     }
 
@@ -38,9 +38,7 @@ class CustomerService {
         }
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete( id: String) {
+    fun delete(id: Int) {
         customers.removeIf { it.id == id }
     }
 }
