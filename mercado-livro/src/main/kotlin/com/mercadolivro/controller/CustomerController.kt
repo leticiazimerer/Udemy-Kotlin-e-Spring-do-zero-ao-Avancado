@@ -41,4 +41,5 @@ class CustomerController(
     fun delete(@PathVariable id: Int) {
         customerService.delete(id)
     }
+
 }
