@@ -22,7 +22,7 @@ class CustomerService(
     }
 
     fun getCustomer(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id).orElseThrow() // "orElseThrow" lança uma exception caso nao ache nenhum registro
     }
 
     fun update(customer: CustomerModel) {
