@@ -1,8 +1,8 @@
 package com.mercadolivro.model
 
 import com.mercadolivro.enums.BookStatus
+import jakarta.persistence.*
 import java.math.BigDecimal
-import javax.persistence.*
 
 @Entity(name = "book") // Define que essa classe é uma entidade do banco
 data class BookModel(

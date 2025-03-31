@@ -7,7 +7,8 @@ import java.lang.Exception
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository // Dependência do CustomerRepository
+    val customerRepository: CustomerRepository, // Dependência do CustomerRepository
+    val bookService: BookService
 ) {
 
     fun getAll(name: String?): List<CustomerModel> { // Retorna uma lista de acordo com o nome (que pode ser null)

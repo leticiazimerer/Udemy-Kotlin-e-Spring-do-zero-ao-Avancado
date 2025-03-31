@@ -1,6 +1,6 @@
 package com.mercadolivro.model
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity(name = "customer")
 data class CustomerModel(
