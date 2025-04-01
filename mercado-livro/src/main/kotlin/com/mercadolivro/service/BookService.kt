@@ -23,7 +23,7 @@ class BookService(
     }
 
     fun findActives(): List<BookModel> {
-        return  bookRepository.findByStatus(BookStatus.ATIVO) // Chama o método findByStatus do repositório, passando o status ATIVO. O Spring Data JPA gera automaticamente a consulta SQL que seleciona os livros com esse status
+        return  bookRepository.findByStatus(BookStatus.ATIVO) // Chama o metodo findByStatus do repositório, passando o status ATIVO. O Spring Data JPA gera automaticamente a consulta SQL que seleciona os livros com esse status
     }
 
     fun findById(id : Int): BookModel { // Busca o livro por ID
@@ -39,5 +39,13 @@ class BookService(
 
     fun update(book: BookModel) {
         bookRepository.save(book) // O save do repositório realiza tanto a criação quanto a atualização do livro. Se o livro já existe (já tem um ID), ele será atualizado. Caso contrário, será criado
+    }
+
+    fun deleteByCustomer(customer : CustomerModel) {
+        val books = bookRepository.findByCustomer(customer) // busca todos os livros que pertencem ao customer e salba em books
+        for (book in books) { // Para cada registro na lista books vamos criar variável book e iterar sobre ela
+            book.status = BookStatus.DELETADO
+            bookRepository.saveAll(books) // salva a minha lista de livros
+        }
     }
 }

@@ -19,7 +19,7 @@ class BookController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Define que ao criar um livro, a resposta terá o status 201 CREATED
     fun create(@RequestBody request: PostBookRequest) { // O corpo da requisição deve conter um PostBookRequest (um DTO que representa os dados para criar um livro)
-        val customer = customerService.getById(request.customerId) // Busca o cliente no sistema usando o ID que veio na requisição
+        val customer = customerService.findById(request.customerId) // Busca o cliente no sistema usando o ID que veio na requisição
                                                                    // e garante que o cliente existe antes de criar o livro.
         bookService.create(request.toBookModel(customer)) // 1* Converte a requisição para BookModel e cria o livro
     }
@@ -75,7 +75,7 @@ no banco poderiam impactar a API.
 - Incluir a referência ao cliente → PostBookRequest traz apenas customerId (um número), enquanto BookModel
 precisa da instância completa de CustomerModel.
 
-val customer = customerService.getById(request.customerId) = Buscamos o CustomerModel correspondente ao customerId.
+val customer = customerService.findById(request.customerId) = Buscamos o CustomerModel correspondente ao customerId.
 bookService.create(request.toBookModel(customer)) = Usamos a função toBookModel(customer), que converte PostBookRequest em BookModel.
 *** toBookModel realiza a conversão e pega os dados de PostBookRequest, adiciona o CustomerModel e retorna um BookModel.*/
 

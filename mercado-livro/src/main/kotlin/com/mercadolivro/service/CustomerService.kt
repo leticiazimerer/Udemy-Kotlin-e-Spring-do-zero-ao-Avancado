@@ -22,7 +22,7 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
-    fun getById(id: Int): CustomerModel {
+    fun findById(id: Int): CustomerModel {
         return customerRepository.findById(id).orElseThrow() // "orElseThrow" lança uma exception caso nao ache nenhum registro e o findById(id) retorna um Optional<CustomerModel>, ou seja, pode ou não encontrar o cliente. O método orElseThrow() lança uma exceção caso o cliente não seja encontrado. Essa exceção pode ser tratada em outro lugar do sistema
     }
 
@@ -37,10 +37,8 @@ class CustomerService(
     }
 
     fun delete(id: Int) {
-        if(!customerRepository.existsById(id)){ // verifica se o cliente existe com existsById(id). Se não encontrar o cliente, lança uma exceção.
-            throw Exception()
-        }
-
+        val customer = findById(id) // verifica se o cliente existe com existsById(id). Se não encontrar o cliente, lança uma exceção.
+        bookService.deleteByCustomer(customer)
         customerRepository.deleteById(id)
     }
 }

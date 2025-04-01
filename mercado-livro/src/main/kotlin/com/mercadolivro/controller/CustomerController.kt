@@ -28,7 +28,7 @@ class CustomerController(
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): CustomerModel { // Captura o {id} da URL e passa como argumento e retorna um obj do tipo 'CustomerModel'
-        return customerService.getById(id) // Busca o cliente no banco e retorna
+        return customerService.findById(id) // Busca o cliente no banco e retorna
     }
 
     @PutMapping("/{id}")
