@@ -34,7 +34,8 @@ class CustomerController(
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204 indicando que a atualização foi bem-sucedida sem retornar um corpo de resposta
     fun update(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) { // Recebe os dados no corpo da requisição e converte para CustomerModel
-       customerService.update(customer.toCustomerModel(id)) // Atualiza mantendo o id antigo
+        val customerSaved = customerService.findById(id)
+        customerService.update(customer.toCustomerModel(customerSaved)) // Atualiza mantendo o id antigo
     }
 
     @DeleteMapping("/{id}")
