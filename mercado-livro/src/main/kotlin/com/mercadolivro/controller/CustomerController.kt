@@ -2,8 +2,9 @@ package com.mercadolivro.controller
 
 import com.mercadolivro.controller.request.PostCustomerRequest
 import com.mercadolivro.controller.request.PutCustomerRequest
+import com.mercadolivro.controller.response.CustomerResponse
 import com.mercadolivro.extension.toCustomerModel
-import com.mercadolivro.model.CustomerModel
+import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -16,8 +17,9 @@ class CustomerController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<CustomerModel> { // Permite filtrar clientes pelo nome se o parametro for passado na URLb(/customer?name=Leticia)
-        return customerService.getAll(name) // Chama 'customerService.getAll(name)' p buscar os clientes e retorna uma lista
+    fun getAll(@RequestParam name: String?): List<CustomerResponse> { // Permite filtrar clientes pelo nome se o parametro for passado na URLb(/customer?name=Leticia)
+        // map { } = itera/passa por todos os ojs da lista e transforma em toResponse
+        return customerService.getAll(name).map { it.toResponse() } // Chama 'customerService.getAll(name)' p buscar os clientes e retorna uma lista
     }
 
     @PostMapping
@@ -27,8 +29,8 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel { // Captura o {id} da URL e passa como argumento e retorna um obj do tipo 'CustomerModel'
-        return customerService.findById(id) // Busca o cliente no banco e retorna
+    fun getCustomer(@PathVariable id: Int): CustomerResponse { // Captura o {id} da URL e passa como argumento e retorna um obj do tipo 'CustomerModel'
+        return customerService.findById(id).toResponse() // Busca o cliente no banco e retorna
     }
 
     @PutMapping("/{id}")
