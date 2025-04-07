@@ -17,8 +17,6 @@ data class BookModel(
     @Column
     var price: BigDecimal,
 
-
-
     @ManyToOne // muitos livros para 1 usuário
     @JoinColumn(name = "customer_id")
     var customer: CustomerModel? = null // O livro pode ou não ter um cliente associado (null) e se um cliente comprar o livro, essa propriedade será preenchida com um CustomerModel, representando o comprador.

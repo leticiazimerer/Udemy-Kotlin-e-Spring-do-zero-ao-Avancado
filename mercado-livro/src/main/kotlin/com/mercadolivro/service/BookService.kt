@@ -4,6 +4,8 @@ import com.mercadolivro.enums.BookStatus
 import com.mercadolivro.model.BookModel
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 // Implementam a lógica do negócio
@@ -18,12 +20,12 @@ class BookService(
         bookRepository.save(book)
     }
 
-    fun findAll(): List<BookModel> { // função retornará uma lista
-        return bookRepository.findAll().toList()
+    fun findAll(pageable: Pageable): Page<BookModel> { // função retornará uma lista
+        return bookRepository.findAll(pageable)
     }
 
-    fun findActives(): List<BookModel> {
-        return  bookRepository.findByStatus(BookStatus.ATIVO) // Chama o metodo findByStatus do repositório, passando o status ATIVO. O Spring Data JPA gera automaticamente a consulta SQL que seleciona os livros com esse status
+    fun findActives(pageable: Pageable): Page<BookModel> {
+        return  bookRepository.findByStatus(BookStatus.ATIVO, pageable) // Chama o metodo findByStatus do repositório, passando o status ATIVO. O Spring Data JPA gera automaticamente a consulta SQL que seleciona os livros com esse status
     }
 
     fun findById(id : Int): BookModel { // Busca o livro por ID
