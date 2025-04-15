@@ -31,7 +31,7 @@ class BookService(
     }
 
     fun findById(id : Int): BookModel { // Busca o livro por ID
-        return bookRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML0001.message.format(id), Errors.ML0001.code) } // caso não exista, retorna nossa exception
+        return bookRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML101.message.format(id), Errors.ML101.code) } // caso não exista, retorna nossa exception
     }
 
     fun delete(id: Int) {

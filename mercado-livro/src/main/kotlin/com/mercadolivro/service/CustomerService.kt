@@ -26,7 +26,7 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML0002.message.format(id), Errors.ML0002.code) }  // "orElseThrow" lança uma exception caso nao ache nenhum registro e o findById(id) retorna um Optional<CustomerModel>, ou seja, pode ou não encontrar o cliente. O método orElseThrow() lança uma exceção caso o cliente não seja encontrado. Essa exceção pode ser tratada em outro lugar do sistema
+        return customerRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }  // "orElseThrow" lança uma exception caso nao ache nenhum registro e o findById(id) retorna um Optional<CustomerModel>, ou seja, pode ou não encontrar o cliente. O método orElseThrow() lança uma exceção caso o cliente não seja encontrado. Essa exceção pode ser tratada em outro lugar do sistema
     }
 
     fun update(customer: CustomerModel) {
