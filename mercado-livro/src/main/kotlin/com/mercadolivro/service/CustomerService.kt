@@ -1,6 +1,7 @@
 package com.mercadolivro.service
 
 import com.mercadolivro.enums.CustomerStatus
+import com.mercadolivro.extension.NotFoundException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
 import org.springframework.stereotype.Service
@@ -24,7 +25,7 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow() // "orElseThrow" lança uma exception caso nao ache nenhum registro e o findById(id) retorna um Optional<CustomerModel>, ou seja, pode ou não encontrar o cliente. O método orElseThrow() lança uma exceção caso o cliente não seja encontrado. Essa exceção pode ser tratada em outro lugar do sistema
+        return customerRepository.findById(id).orElseThrow{ NotFoundException("Customer {${id}} not exist.", "ML-0002") }  // "orElseThrow" lança uma exception caso nao ache nenhum registro e o findById(id) retorna um Optional<CustomerModel>, ou seja, pode ou não encontrar o cliente. O método orElseThrow() lança uma exceção caso o cliente não seja encontrado. Essa exceção pode ser tratada em outro lugar do sistema
     }
 
     fun update(customer: CustomerModel) {
