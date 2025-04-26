@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.flywaydb:flyway-core:11.3.4") // "flyway" para sempre deixar a ultima versão atualizada
 	implementation("mysql:mysql-connector-java:8.0.33")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

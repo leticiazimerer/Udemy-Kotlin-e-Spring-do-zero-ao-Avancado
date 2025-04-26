@@ -6,6 +6,7 @@ import com.mercadolivro.controller.response.CustomerResponse
 import com.mercadolivro.extension.toCustomerModel
 import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -24,7 +25,7 @@ class CustomerController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Resposta 201 CREATED
-    fun create(@RequestBody customer: PostCustomerRequest) { // Recebe os dados no corpo da requisição e converte para PostCustomerRequest
+    fun create(@RequestBody @Valid customer: PostCustomerRequest) { // Recebe os dados no corpo da requisição e converte para PostCustomerRequest
        customerService.create(customer.toCustomerModel()) // 3* customer.toCustomerModel() = Converte PostCustomerRequest para CustomerModel
     }
 
