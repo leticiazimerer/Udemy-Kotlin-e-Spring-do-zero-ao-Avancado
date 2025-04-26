@@ -7,6 +7,7 @@ import com.mercadolivro.extension.toBookModel
 import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.BookService
 import com.mercadolivro.service.CustomerService
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -22,7 +23,7 @@ class BookController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Define que ao criar um livro, a resposta terá o status 201 CREATED
-    fun create(@RequestBody request: PostBookRequest) { // O corpo da requisição deve conter um PostBookRequest (um DTO que representa os dados para criar um livro)
+    fun create(@RequestBody @Valid request: PostBookRequest) { // O corpo da requisição deve conter um PostBookRequest (um DTO que representa os dados para criar um livro)
         val customer = customerService.findById(request.customerId) // Busca o cliente no sistema usando o ID que veio na requisição
                                                                    // e garante que o cliente existe antes de criar o livro.
         bookService.create(request.toBookModel(customer)) // 1* Converte a requisição para BookModel e cria o livro

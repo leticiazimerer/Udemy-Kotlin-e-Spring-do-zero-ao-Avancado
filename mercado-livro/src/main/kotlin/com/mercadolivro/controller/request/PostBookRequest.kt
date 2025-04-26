@@ -1,13 +1,19 @@
 package com.mercadolivro.controller.request
 
 import com.fasterxml.jackson.annotation.JsonAlias
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull // <-- Corrigido aqui
 import java.math.BigDecimal
 
 data class PostBookRequest (
     // Define os dados necessários para a criação de um livro.
+    @field:NotEmpty(message = "Nome deve ser informado")
     var name: String,
+
+    @field:NotNull(message = "Preço deve ser informado")
     var price: BigDecimal,
-    @JsonAlias("customer_id") // coloca o valor de 'customer_id' dentro do 'customerId', pois não podemos usar "_"
+
+    @JsonAlias("customer_id")
     var customerId: Int
 )
 
