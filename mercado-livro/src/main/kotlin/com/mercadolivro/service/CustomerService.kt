@@ -40,10 +40,15 @@ class CustomerService(
     }
 
     fun delete(id: Int) {
-        val customer = findById(id) // verifica se o cliente existe com existsById(id). Se não encontrar o cliente, lança uma exceção.
+        val customer = findById(id) // verifica se o cliente existe com existsById(id). Se não encontrar o cliente, lança uma exceção
         bookService.deleteByCustomer(customer)
         customer.status = CustomerStatus.INATIVO // passamos para inativo
         customerRepository.save(customer)
+    }
+
+    fun emailAvailable(email: String): Boolean {
+        return !customerRepository.existsByEmail(email) //O customerRepository.existsByEmail(email) retorna true se o e-mail já existir
+        // Usamos "!" para inverter, ou seja, retorna true se o e-mail NÃO existir
     }
 }
 
