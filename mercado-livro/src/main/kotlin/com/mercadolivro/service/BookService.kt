@@ -52,4 +52,8 @@ class BookService(
             bookRepository.saveAll(books) // salva a minha lista de livros
         }
     }
+
+    fun findAllByIds(bookIds: Set<Int>): List<BookModel> {
+        return bookRepository.findAllById(bookIds).toList() // Busca todos os livros com base nos IDs fornecidos e converte o resultado para uma lista
+    }
 }
