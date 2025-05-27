@@ -15,4 +15,8 @@ class PurchaseService(
         purchaseRepository.save(purchaseModel)
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchaseModel)) // Dispara o evento de compra após salvar o modelo de compra no repositório
     }
+
+    fun update(purchaseModel: PurchaseModel) {
+        purchaseRepository.save(purchaseModel) // Atualiza o modelo de compra no repositório
+    }
 }

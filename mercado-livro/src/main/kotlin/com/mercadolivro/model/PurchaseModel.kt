@@ -20,7 +20,7 @@ data class PurchaseModel(
         joinColumns = [JoinColumn(name = "purchase_id")], // Coluna que faz a relação com a tabela de compras
         inverseJoinColumns = [JoinColumn(name = "book_id")] // Coluna que faz a relação com a tabela de livros
     )
-    val books: List<BookModel>, // Usamos List para manter a ordem dos livros na compra
+    val books: MutableList<BookModel>, // Usamos List para manter a ordem dos livros na compra
 
     @Column
     val nfe: String? = null, // Nota Fiscal Eletrônica, pode ser null se não for gerada

@@ -18,7 +18,7 @@ class PurchaseMapper(
 
         return PurchaseModel(
             customer = customer, // Atribuímos o cliente encontrado ao modelo de compra
-            books = books, // Converte a lista de IDs de livros para uma lista de BookModel
+            books = books.toMutableList(), // Converte a lista de IDs de livros para uma lista de BookModel
             price = books.sumOf { it.price }, // calcula o preço total da compra somando os preços de todos os livros
             createdAt = LocalDateTime.now()
         )

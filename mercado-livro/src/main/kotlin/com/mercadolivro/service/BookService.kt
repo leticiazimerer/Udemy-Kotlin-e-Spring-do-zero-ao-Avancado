@@ -56,4 +56,9 @@ class BookService(
     fun findAllByIds(bookIds: Set<Int>): List<BookModel> {
         return bookRepository.findAllById(bookIds).toList() // Busca todos os livros com base nos IDs fornecidos e converte o resultado para uma lista
     }
+
+    fun purchase(books: MutableList<BookModel>) {
+        books.map { it.status = BookStatus.VENDIDO } // Mapeia a lista de livros e atualiza o status de cada livro para VENDIDO
+        bookRepository.saveAll(books) // Salva a lista de livros atualizada no repositório
+    }
 }
