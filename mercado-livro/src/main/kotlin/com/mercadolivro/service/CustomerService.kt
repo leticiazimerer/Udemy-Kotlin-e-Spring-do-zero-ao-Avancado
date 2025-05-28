@@ -6,13 +6,16 @@ import com.mercadolivro.enums.Profile
 import com.mercadolivro.extension.NotFoundException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
+import org.springframework.security.crypto.bcrypt.BCrypt
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.lang.Exception
 
 @Service
 class CustomerService(
     val customerRepository: CustomerRepository, // Dependência do CustomerRepository
-    val bookService: BookService
+    val bookService: BookService,
+    private val bCrypt: BCryptPasswordEncoder
 ) {
 
     fun getAll(name: String?): List<CustomerModel> { // Retorna uma lista de acordo com o nome (que pode ser null)
@@ -23,7 +26,10 @@ class CustomerService(
     }
 
     fun create(customer: CustomerModel) { // Recebe o obj CustomerModel e usa o repositório para salvar o novo cliente
-        val customerCopy = customer.copy(roles = setOf(Profile.CUSTOMER)) // Define o perfil do cliente como CUSTOMER, garantindo que todo novo cliente tenha esse perfil
+        val customerCopy = customer.copy(
+            roles = setOf(Profile.CUSTOMER), // Define o perfil do cliente como CUSTOMER, garantindo que todo novo cliente tenha esse perfil
+            password = bCrypt.encode(customer.password) // Criptografa a senha do cliente usando BCryptPasswordEncoder (é uma biblioteca de criptografia que implementa o algoritmo BCrypt, que é um algoritmo de hash seguro para senhas)
+        )
         customerRepository.save(customerCopy)
     }
 
