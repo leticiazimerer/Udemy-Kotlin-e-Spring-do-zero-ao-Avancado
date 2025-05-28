@@ -11,5 +11,8 @@ data class PostCustomerRequest (
 
     @field:Email(message = "Email deve ser válido") // o próprio spring tem validações para emails
     @EmailAvailable // Criamos nossa própria validação
-    var email: String
+    var email: String,
+
+    @field:NotEmpty(message = "Senha deve ser informada") // Aqui diz que não pode ser null e nem vazio
+    var password: String
 )
