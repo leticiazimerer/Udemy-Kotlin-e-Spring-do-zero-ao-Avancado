@@ -13,8 +13,8 @@ import java.lang.Exception
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository, // Dependência do CustomerRepository
-    val bookService: BookService,
+    private val customerRepository: CustomerRepository, // Dependência do CustomerRepository
+    private val bookService: BookService,
     private val bCrypt: BCryptPasswordEncoder
 ) {
 
