@@ -8,6 +8,7 @@ import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.CustomerService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -30,6 +31,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == authentication.principal.id")
     fun getCustomer(@PathVariable id: Int): CustomerResponse { // Captura o {id} da URL e passa como argumento e retorna um obj do tipo 'CustomerModel'
         return customerService.findById(id).toResponse() // Busca o cliente no banco e retorna
     }
