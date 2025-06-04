@@ -5,6 +5,7 @@ import com.mercadolivro.controller.request.PutCustomerRequest
 import com.mercadolivro.controller.response.CustomerResponse
 import com.mercadolivro.extension.toCustomerModel
 import com.mercadolivro.extension.toResponse
+import com.mercadolivro.security.UserCanOnlyAccessTheirOwnResource
 import com.mercadolivro.service.CustomerService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -31,7 +32,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == authentication.principal.id")
+    @UserCanOnlyAccessTheirOwnResource
     fun getCustomer(@PathVariable id: Int): CustomerResponse { // Captura o {id} da URL e passa como argumento e retorna um obj do tipo 'CustomerModel'
         return customerService.findById(id).toResponse() // Busca o cliente no banco e retorna
     }
