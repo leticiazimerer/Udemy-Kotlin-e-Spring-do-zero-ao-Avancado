@@ -2,11 +2,10 @@ package com.mercadolivro.service
 
 import com.mercadolivro.enums.CustomerStatus
 import com.mercadolivro.enums.Errors
-import com.mercadolivro.enums.Profile
+import com.mercadolivro.enums.Role
 import com.mercadolivro.extension.NotFoundException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
-import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.lang.Exception
@@ -27,7 +26,7 @@ class CustomerService(
 
     fun create(customer: CustomerModel) { // Recebe o obj CustomerModel e usa o repositório para salvar o novo cliente
         val customerCopy = customer.copy(
-            roles = setOf(Profile.CUSTOMER), // Define o perfil do cliente como CUSTOMER, garantindo que todo novo cliente tenha esse perfil
+            roles = setOf(Role.CUSTOMER), // Define o perfil do cliente como CUSTOMER, garantindo que todo novo cliente tenha esse perfil
             password = bCrypt.encode(customer.password) // Criptografa a senha do cliente usando BCryptPasswordEncoder (é uma biblioteca de criptografia que implementa o algoritmo BCrypt, que é um algoritmo de hash seguro para senhas)
         )
         customerRepository.save(customerCopy)

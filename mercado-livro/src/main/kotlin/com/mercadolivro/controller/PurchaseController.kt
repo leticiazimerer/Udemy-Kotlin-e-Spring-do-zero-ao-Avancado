@@ -1,4 +1,4 @@
-package com.mercadolivro.configs
+package com.mercadolivro.controller
 
 import com.mercadolivro.controller.mapper.PurchaseMapper
 import com.mercadolivro.controller.request.PostPurchaseRequest
