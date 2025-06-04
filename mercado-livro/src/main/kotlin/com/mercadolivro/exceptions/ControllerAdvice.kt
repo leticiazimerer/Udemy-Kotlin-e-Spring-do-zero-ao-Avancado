@@ -7,6 +7,7 @@ import com.mercadolivro.extension.BadRequestException
 import com.mercadolivro.extension.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.WebRequest
 // Aqui ficará concentrado nossos erros
 @ControllerAdvice
 class ControllerAdvice {
+
     @ExceptionHandler(NotFoundException::class)
     fun handlerNotFoundException(ex:NotFoundException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val error =  ErrorResponse(
@@ -46,5 +48,16 @@ class ControllerAdvice {
             ex.bindingResult.fieldErrors.map { FieldErrorResponse(it.defaultMessage ?: "invalid", it.field) } // por meio do map, vamos pegar todos nossos erros e retornar eles todos de uma vez
         )
         return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
+    }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handlerAccessDeniedException(ex:AccessDeniedException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error =  ErrorResponse(
+            HttpStatus.FORBIDDEN.value(), // = erro 404
+            Errors.ML000.message,
+            Errors.ML000.code,
+            null
+        )
+        return ResponseEntity(error, HttpStatus.NOT_FOUND)
     }
 }

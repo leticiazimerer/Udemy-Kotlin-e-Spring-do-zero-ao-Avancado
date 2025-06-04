@@ -5,6 +5,7 @@ import com.mercadolivro.security.AuthenticationFilter
 import com.mercadolivro.security.AuthorizationFilter
 import com.mercadolivro.security.JwtUtil
 import com.mercadolivro.enums.Role
+import com.mercadolivro.security.CustomAuthenticationEntryPoint
 import com.mercadolivro.service.UserDetailsCustomService
 import io.swagger.models.HttpMethod
 import org.springframework.context.annotation.Bean
@@ -27,7 +28,8 @@ import org.springframework.web.filter.CorsFilter
 class SecurityConfig(
     private val customerRepository: CustomerRepository,
     private val userDetails: UserDetailsCustomService,
-    private val jwtUtil: JwtUtil
+    private val jwtUtil: JwtUtil,
+    private val customEntryPoint: CustomAuthenticationEntryPoint
 ): WebSecurityConfigurationAdapter() {
 
     private val PUBLIC_MATCHERS = arrayOf<String>()
@@ -49,6 +51,7 @@ class SecurityConfig(
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil)) // Adiciona os filtros de autenticação e autorização
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Aqui estamos falando que as requisições serão independentes e não tem nada a ver com as anteriores, podendo ser de usuários diferentes
+        http.exceptionHandling().authenticationEntryPoint(customEntryPoint)
     }
 
     override fun configure(webSecurity: WebSecurity) {

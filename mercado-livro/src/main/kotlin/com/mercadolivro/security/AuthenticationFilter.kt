@@ -1,7 +1,6 @@
 package com.mercadolivro.security
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.mercadolivro.controller.request.LoginRequest
 import com.mercadolivro.exceptions.AuthenticationException
 import com.mercadolivro.repository.CustomerRepository
@@ -16,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
     private val customerRepository: CustomerRepository,
+    private val jwtUtil: JwtUtil
 ): UsernamePasswordAuthenticationFilter(authenticationManager) { // UsernamePasswordAuthenticationFilter explica ao spring como vamos realizar o login
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
