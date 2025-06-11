@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 class AdminController(
 ) {
 
-    @GetMapping("/report")
+    @GetMapping("/reports")
     fun report(): String{
         return "This is a report. Only Admin can see it!"
     }

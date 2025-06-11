@@ -15,10 +15,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController // Define que essa classe é um controller REST
-@RequestMapping("book")
+@RequestMapping("books")
 class BookController(
-    val bookService: BookService, // Recebe bookService e customerService como dependências injetadas automaticamente pelo Spring
-    val customerService: CustomerService
+    private val bookService: BookService, // Recebe bookService e customerService como dependências injetadas automaticamente pelo Spring
+    private val customerService: CustomerService
 ) {
 
     @PostMapping

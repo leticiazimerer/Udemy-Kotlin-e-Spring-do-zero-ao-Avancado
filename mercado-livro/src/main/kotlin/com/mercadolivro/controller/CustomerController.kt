@@ -13,10 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("customer") // Todos os endpoints terão o prefixo '/customer'
+@RequestMapping("customers") // Todos os endpoints terão o prefixo '/customer'
 // Os controllers são responsáveis por receber requisições HTTP e chamar os serviços.
 class CustomerController(
-    val customerService : CustomerService // Recebe CustomerService como dependência (é onde contem a lógica do negócio)
+    private val customerService : CustomerService // Recebe CustomerService como dependência (é onde contem a lógica do negócio)
 ) {
 
     @GetMapping

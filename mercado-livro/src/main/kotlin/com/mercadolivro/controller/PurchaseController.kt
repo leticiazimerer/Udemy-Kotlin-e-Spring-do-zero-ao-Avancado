@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("purchase") // Aqui estamos definindo o endpoint base para as requisições relacionadas a compras
+@RequestMapping("purchases") // Aqui estamos definindo o endpoint base para as requisições relacionadas a compras
 class PurchaseController(
     private val purchaseService: PurchaseService, // Aqui estamos injetando o PurchaseService, que será usado para processar a compra
     private val purchaseMapper: PurchaseMapper

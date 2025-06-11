@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 // Processa as regras de negócio e chama o repositório para persistir ou buscar dados do banco
 @Service
 class BookService(
-    val bookRepository: BookRepository // Dependência permitindo que o service acesse os métodos p interagir com o BD
+    private val bookRepository: BookRepository // Dependência permitindo que o service acesse os métodos p interagir com o BD
 ) {
     fun create(book: BookModel) { // Recebe o obj BookModel e chama o método save do repositório
         bookRepository.save(book)
