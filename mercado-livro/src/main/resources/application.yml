@@ -5,7 +5,9 @@ spring:
     hibernate:
       ddl-auto: update
   jackson:
-    default-propert-inclusion: non_null
+    default-property-inclusion: non_null
+  flyway:
+    clean-disabled: false
 
 jwt:
   secret: 98q3474318-019384jrd981384ru891348ur19384

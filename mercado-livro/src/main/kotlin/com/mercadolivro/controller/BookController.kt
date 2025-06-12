@@ -5,6 +5,7 @@ import com.mercadolivro.controller.request.PutBookRequest
 import com.mercadolivro.controller.response.BookResponse
 import com.mercadolivro.controller.response.PageResponse
 import com.mercadolivro.extension.toBookModel
+import com.mercadolivro.extension.toPageResponse
 import com.mercadolivro.extension.toResponse
 import com.mercadolivro.service.BookService
 import com.mercadolivro.service.CustomerService

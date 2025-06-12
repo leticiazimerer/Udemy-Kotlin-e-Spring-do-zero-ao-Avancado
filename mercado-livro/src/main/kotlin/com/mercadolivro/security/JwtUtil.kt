@@ -16,9 +16,13 @@ class JwtUtil {
     @Value("\${jwt.secret}")
     private val secret: String? = null
     fun generateToken(id: Int): String {
+        val now = Date()
+        val expirationDate = Date(now.time + expiration!!) // tempo atual + tempo de expiração
+
         return Jwts.builder()
             .setSubject(id.toString())
-            .setExpiration(Date(System.currentTimeMillis() + expiration!!))
+            .setIssuedAt(now)
+            .setExpiration(expirationDate)
             .signWith(SignatureAlgorithm.HS512, secret!!.toByteArray())
             .compact()
     }

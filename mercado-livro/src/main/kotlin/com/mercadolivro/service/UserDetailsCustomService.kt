@@ -12,8 +12,10 @@ class UserDetailsCustomService(
     private val customerRepository: CustomerRepository
 ): UserDetailsService {
     override fun loadUserByUsername(id: String?): UserDetails {
-        val customer = customerRepository.findById(id.toInt())
-            .orElseThrow { AuthenticationException("Usuário não encontrado.", "999") }
+        val customer = id?.toInt()?.let {
+            customerRepository.findById(it)
+                .orElseThrow { AuthenticationException("Usuário não encontrado.", "999") }
+        } ?: throw AuthenticationException("ID do usuário é nulo.", "998")
         return UserCustomDetails(customer)
     }
 }
